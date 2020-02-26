@@ -1,18 +1,32 @@
 {
-  "name": "p2p-broadcast",
-  "version": "0.0.3",
+  "name": "@tixl/p2p-broadcast",
+  "version": "0.0.1",
   "description": "Simple P2P message broadcasting",
-  "main": "src/Node.js",
+  "main": "lib/index.js",
+  "repository": "git://github.com/tixl/p2p-broadcast.git",
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "build": "tsc",
+    "prepublish": "npm run build"
   },
+  "files": [
+    "lib"
+  ],
   "author": "will123195",
+  "contributors": [
+    "Bernd Strehl <bernd@tixl.me>"
+  ],
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^13.7.6",
+    "@types/split": "^1.0.0",
+    "@types/uuid": "^7.0.0",
     "bluebird": "^3.5.0",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "typescript": "^3.8.2"
   },
   "dependencies": {
-    "split": "^1.0.1"
+    "split": "^1.0.1",
+    "uuid": "^7.0.1"
   }
 }
