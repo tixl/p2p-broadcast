@@ -64,6 +64,7 @@ export class Peer {
           data: message.payload,
           peer: this,
           hops: message.hops,
+          sender: message.sender,
         });
     }
   }

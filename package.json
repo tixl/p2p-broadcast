@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^13.7.6",
     "@types/split": "^1.0.0",
+    "@types/through": "^0.0.30",
     "@types/uuid": "^7.0.0",
     "bluebird": "^3.5.0",
     "tape": "^4.8.0",

@@ -99,11 +99,11 @@ export class Node extends EventEmitter {
     peer.host = host;
     socket.on('connect', () => {
       peer.send('hosts?');
-      this.emit('newOutgoingConnection', { peer });
+      this.emit('newConnection', { peer });
     });
     socket.on('end', () => {
       this.removePeer(peer);
-      this.emit('lostOutgoingConnection', { peer });
+      this.emit('lostConnection', { peer });
     });
     socket.on('timeout', () => console.log(`${this.port} socket timeout`));
     socket.on('drain', () => console.log(`${this.port} socket drain`));
@@ -138,9 +138,20 @@ export class Node extends EventEmitter {
         socket.ending = true;
         return socket.end();
       }
+      this.emit('newConnection', { peer });
+
       peer.send('port?');
       peer.send('hosts?');
       this.peers.push(peer);
+
+      socket.on('error', error => {
+        this.removePeer(peer);
+        this.emit('lostConnection', { peer });
+      });
+      socket.on('end', () => {
+        this.removePeer(peer);
+        this.emit('lostConnection', { peer });
+      });
     });
     server.on('close', () => console.log(`${this.port} server close`));
     server.on('error', error => console.log(`${this.port} server error:`, error));
