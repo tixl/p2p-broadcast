@@ -1,6 +1,6 @@
 {
   "name": "@tixl/p2p-broadcast",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple P2P message broadcasting",
   "main": "lib/index.js",
   "repository": "git://github.com/tixl/p2p-broadcast.git",
