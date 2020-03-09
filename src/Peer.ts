@@ -4,6 +4,15 @@ import { Message, Node } from './Node';
 import { ThroughStream } from 'through';
 import { v4 as uuid } from 'uuid';
 
+function JsonParseOrNull(str: string) {
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    console.error('Error in parsing string: ', str);
+    return null;
+  }
+}
+
 export interface Socket extends net.Socket {
   ending: boolean;
 }
@@ -21,8 +30,12 @@ export class Peer {
 
   constructor({ socket, node }: { node: Node; socket: Socket }) {
     this.id = uuid();
-    const splitter = split(JSON.parse, null, { trailing: false } as any);
-    socket.pipe(splitter).on('data', data => this.receive(data));
+    const splitter = split(JsonParseOrNull, null, { trailing: false } as any);
+    socket.pipe(splitter).on('data', data => {
+      if (data !== null) {
+        this.receive(data);
+      }
+    });
     this.socket = socket;
     this.node = node;
     this.receivedMessages = {};
